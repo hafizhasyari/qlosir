@@ -1,0 +1,27 @@
+# Claude local settings
+.claude/settings.local.json
+
+# Dependencies
+node_modules/
+
+# Production build artifacts
+dist/
+build/
+coverage/
+playwright-report/
+test-results/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Persistent storage & sessions
+*.log
+postgres_data/
+waha_sessions/
+tmp/
+
+# OS specific
+.DS_Store
+Thumbs.db
