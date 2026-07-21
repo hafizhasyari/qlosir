@@ -91,28 +91,98 @@ Qlosir mengadopsi arsitektur **Containerized Microservices** berbasis Docker Com
 ## 🚀 Panduan Menjalankan Project
 
 ### Prerequisites
-- Docker & Docker Compose v2+
-- Node.js v24.18.0+ & npm
+- Node.js v24.18.0+ (atau minimal v20+) & npm
+- Git
+- Web Server / Proxy (Nginx, PM2, atau Docker)
 
-### Menjalankan Seluruh Microservices
+---
+
+### 1. Menjalankan di Lingkungan Lokal (Development)
 ```bash
 # Clone repository
 git clone https://github.com/hafizhasyari/qlosir.git
 cd qlosir
 
-# Jalankan seluruh multi-container microservices di background
-docker compose up -d
+# Install seluruh dependency monorepo
+npm install
 
-# Pantau live logs untuk seluruh container atau service tertentu
-docker compose logs -f
-docker compose logs -f core-api
+# Jalankan Vite development server (http://localhost:5173)
+npm run dev
 
-# Jalankan migrasi database PostgreSQL
-docker compose exec core-api npm run db:migrate
-
-# Menghentikan seluruh container
-docker compose down
+# Build production bundle
+npm run build
 ```
+
+---
+
+### 2. Panduan Deployment di Server / VPS (Production)
+
+Untuk menjalankan Qlosir di server lain (VPS Ubuntu/Debian seperti AWS, DigitalOcean, Linode, Contabo, dsb.), berikut opsi yang bisa digunakan:
+
+#### ⚡ Opsi A: Standalone PWA via Nginx (*Direkomendasikan*)
+Karena frontend berupa aplikasi React SPA & PWA (`apps/web`), cara paling ringan dan efisien adalah menyajikan hasil build static (`apps/web/dist`) langsung via Nginx.
+
+1. **Build bundle di server:**
+   ```bash
+   npm install
+   npm run build
+   ```
+   *Hasil build akan tersimpan di direktori `apps/web/dist`.*
+
+2. **Konfigurasi Nginx Server Block:**
+   Buat atau edit file konfigurasi Nginx (misal `/etc/nginx/sites-available/qlosir`):
+   ```nginx
+   server {
+       listen 80;
+       server_name kasir.domainanda.com; # Atau IP publik server
+
+       root /path/ke/qlosir/apps/web/dist;
+       index index.html;
+
+       # SPA routing fallback & PWA service worker support
+       location / {
+           try_files $uri $uri/ /index.html;
+       }
+
+       # Cache static assets untuk performa maksimal
+       location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)$ {
+           expires 1y;
+           add_header Cache-Control "public, no-transform";
+       }
+   }
+   ```
+
+3. **Aktifkan dan restart Nginx:**
+   ```bash
+   sudo ln -s /etc/nginx/sites-available/qlosir /etc/nginx/sites-enabled/
+   sudo nginx -t
+   sudo systemctl restart nginx
+   ```
+
+#### 📦 Opsi B: Menggunakan PM2 / Node Preview
+Jika ingin menjalankan preview server berbasis Node.js di background:
+```bash
+# Install PM2 secara global (jika belum ada)
+npm install -g pm2
+
+# Jalankan preview server di background (port 3000)
+pm2 start "npm run preview -- --host 0.0.0.0 --port 3000" --name qlosir-web
+```
+
+---
+
+### ⚠️ Catatan Kritis untuk Deployment Server
+
+1. **🔒 Wajib Menggunakan HTTPS / SSL:**
+   Fitur modern PWA seperti **Barcode Scanner Kamera (`getUserMedia`)**, **Service Worker (Offline Caching)**, dan **Install to Home Screen (PWA)** **TIDAK AKAN BERFUNGSI** di HP kasir jika domain diakses via HTTP biasa (kecuali `localhost`).
+   * *Solusi cepat:* Pasang SSL gratis menggunakan Certbot / Let's Encrypt:
+     ```bash
+     sudo certbot --nginx -d kasir.domainanda.com
+     ```
+2. **🔑 Kredensial Akun & PIN Demo Bawaan:**
+   * **No. HP Akun:** `0812-3456-7890`
+   * **Password:** `warung123`
+   * **PIN Kasir (Till PIN):** `123456`
 
 ---
 
