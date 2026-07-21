@@ -1,0 +1,26 @@
+{
+  "name": "qlosir",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Qlosir — mobile-first PWA point-of-sale (kasir) app for Indonesian warung kelontong",
+  "workspaces": [
+    "apps/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web",
+    "preview": "npm run preview --workspace apps/web",
+    "lint": "npm run lint --workspaces --if-present",
+    "lint:fix": "npm run lint:fix --workspaces --if-present",
+    "format": "prettier --write \"apps/**/*.{ts,tsx,css,html,json}\"",
+    "test:e2e": "npm run test:e2e --workspace apps/web",
+    "test:e2e:ui": "npm run test:e2e:ui --workspace apps/web"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.5"
+  },
+  "engines": {
+    "node": ">=24.18.0"
+  }
+}

@@ -13,7 +13,7 @@ Fokus utama Qlosir adalah **kecepatan transaksi (< 15 detik)**, pencatatan trans
 
 ## 🌟 Fitur Utama
 
-- 📱 **Mobile-First PWA (390×812 px)**: Desain thumb-friendly dengan frame mobile optimal, bottom navigation 5-tab (*Kasir, Produk, Riwayat, Laporan, Setelan*), serta dukungan light & dark mode.
+- 📱 **Mobile-First Native Full-Screen PWA (390×812 px reference)**: Desain thumb-friendly 100% full-screen native PWA tanpa frame mockup pembatas, bottom navigation 5-tab (*Kasir, Produk, Riwayat, Laporan, Setelan*), serta dukungan light & dark mode.
 - ⚡ **Offline-Tolerant & Auto-Sync**: Transaksi tetap dapat dilakukan saat warung kehilangan koneksi internet. Transaksi tersimpan di IndexedDB lokal dan otomatis tersinkronisasi ke PostgreSQL saat kembali online.
 - 📷 **Barcode Scanner Kamera**: Scan barcode produk instan via kamera HP (`getUserMedia`) langsung ke keranjang belanja tanpa alat scanner eksternal.
 - 🖨️ **Thermal Printing Client-Side**: Cetak struk belanja thermal (lebar **58mm** & **80mm**) langsung dari browser/PWA via `@media print` atau WebUSB tanpa perlu install driver tambahan.

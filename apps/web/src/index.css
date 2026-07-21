@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+
+/* Brand design tokens (Qlosir prototype) — Tailwind v4 CSS-first @theme.
+   These generate utilities like bg-brand, text-ink, border-line, etc. */
+@theme {
+  --font-sans:
+    'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Surfaces */
+  --color-page: #ede9e0; /* outermost page background */
+  --color-cream: #f4f1ea; /* device / card cream surface */
+
+  /* Brand green */
+  --color-brand: #0e6b39;
+  --color-brand-dark: #0a5a2f;
+
+  /* Ink & text */
+  --color-ink: #17251c;
+  --color-ink-soft: #4a5850;
+  --color-muted: #7a857e;
+  --color-muted-2: #9aa39d;
+  --color-muted-3: #b8b2a4;
+
+  /* Semantic */
+  --color-danger: #c6432d;
+  --color-danger-dark: #8a2f1f;
+  --color-warning: #e8a020;
+  --color-warning-dark: #9a6a0b;
+  --color-success: #7bd98a;
+  --color-tint: #e4f3e8; /* green tint background */
+  --color-tint-amber: #fdf3e1; /* amber tint background */
+  --color-tint-red: #fdece7; /* red tint background */
+}
+
+/* Global base — full screen PWA layout */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  background: var(--color-cream);
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+}
+
+a {
+  color: var(--color-brand);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-brand-dark);
+}
+
+input {
+  font-family: var(--font-sans);
+  outline: none;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Animations ported verbatim from the prototype */
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes screenIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sheetUp {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes shakeX {
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-8px);
+  }
+  40%,
+  60% {
+    transform: translateX(8px);
+  }
+}
+@keyframes scanLine {
+  0% {
+    top: 6%;
+  }
+  50% {
+    top: 92%;
+  }
+  100% {
+    top: 6%;
+  }
+}

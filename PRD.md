@@ -14,7 +14,7 @@ Qlosir adalah **web app kasir mobile-first (PWA)** untuk warung kelontong, dituj
 
 Aplikasi diakses langsung dari HP pedagang agar cepat dan praktis, serta dapat di-install layaknya aplikasi native.
 
-Desain visual mengikuti bahasa dari handoff: font **Plus Jakarta Sans**, warna brand hijau `#0E6B39`, permukaan krem `#F4F1EA`, frame mobile **390×812**, dan **bottom navigation 5 tab** (Kasir / Produk / Riwayat / Laporan / Setelan).
+Desain visual mengikuti bahasa dari handoff: font **Plus Jakarta Sans**, warna brand hijau `#0E6B39`, permukaan krem `#F4F1EA`, **viewport referensi mobile 390×812 px**, layout **100% full-screen native PWA** (tanpa frame mockup pembatas), dan **bottom navigation 5 tab** (Kasir / Produk / Riwayat / Laporan / Setelan).
 
 ## 2. Persona & User
 
@@ -220,7 +220,7 @@ Konstanta desain:
 ### 7.3 End-to-End Testing Standards (Playwright)
 - **Suite E2E Monorepo (`e2e/`)**: Menggunakan Playwright 1.61+ untuk pengujian integrasi otomatis multi-container.
 - **Skenario Kritis Wajib**:
-  1. *Mobile Emulation*: Viewport frame 390×812 px, touch interactions, dan navigasi 5-tab.
+  1. *Mobile Emulation*: Emulasi mobile viewport referensi 390×812 px, touch interactions, dan navigasi 5-tab.
   2. *Offline PWA Sync*: Validasi `context.setOffline(true)` $\rightarrow$ transaksi antre di IndexedDB $\rightarrow$ `context.setOffline(false)` $\rightarrow$ rekonsiliasi otomatis ke Core API.
   3. *Camera Mocking*: Media stream virtual untuk pengujian instan barcode scanner tanpa kamera fisik.
   4. *Multi-Context Invoice*: Validasi kasir membuat transaksi dan pembeli membuka struk digital `/i/:id` di tab terpisah.
